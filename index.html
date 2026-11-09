@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#ff5fa2">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Pintitas</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icono-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<div id="app">
+  <aside id="colores" class="panel"></aside>
+
+  <main id="centro">
+    <div id="hoja">
+      <canvas id="lienzo" width="1250" height="1000"></canvas>
+      <div id="linea"></div>
+    </div>
+  </main>
+
+  <aside id="herramientas" class="panel">
+    <button id="secreto" aria-label="Menú de papá">
+      <svg viewBox="0 0 60 60" aria-hidden="true">
+        <circle class="anillo" cx="30" cy="30" r="26"/>
+        <g class="huella">
+          <ellipse cx="30" cy="37" rx="10" ry="8.5"/>
+          <ellipse cx="18" cy="26" rx="4.5" ry="5.5"/>
+          <ellipse cx="26" cy="20" rx="4.5" ry="5.5"/>
+          <ellipse cx="34" cy="20" rx="4.5" ry="5.5"/>
+          <ellipse cx="42" cy="26" rx="4.5" ry="5.5"/>
+        </g>
+      </svg>
+    </button>
+    <div id="tamanos"></div>
+    <button id="deshacer" class="redondo" aria-label="Deshacer">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M17 12 L8 21 L17 30 M9 21 H29 a10 10 0 0 1 0 20 H22"/></svg>
+    </button>
+  </aside>
+</div>
+
+<!-- Pregunta para papá -->
+<div id="clave" class="velo" hidden>
+  <div class="tarjeta chica">
+    <p class="titulo">Solo para papá</p>
+    <p id="pregunta"></p>
+    <div id="respuesta"></div>
+    <div id="teclado"></div>
+  </div>
+</div>
+
+<!-- Menú de papá -->
+<div id="menu" class="velo" hidden>
+  <div class="tarjeta grande">
+    <div class="cabecera">
+      <p class="titulo">Elige el dibujo</p>
+      <button id="listo" class="boton rosa">Listo</button>
+    </div>
+    <div id="galeria" class="desplazable"></div>
+    <div class="pie">
+      <button id="borrar" class="boton">Borrar este dibujo</button>
+      <button id="completa" class="boton">Pantalla completa</button>
+    </div>
+  </div>
+</div>
+
+<script src="plantillas.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
