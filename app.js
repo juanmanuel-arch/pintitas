@@ -315,11 +315,18 @@
     galeria.appendChild(b);
   });
 
-  function abrirMenu() {
+  // paraNina = true: la galería que abre ella, con fichas grandes y sin botones de papá
+  function abrirMenu(paraNina) {
+    menu.classList.toggle('nina', !!paraNina);
+    $('#titulo-menu').textContent = paraNina ? '¿Qué quieres pintar?' : 'Elige el dibujo';
     galeria.querySelectorAll('.ficha').forEach(f => f.classList.toggle('activa', f.dataset.id === actual));
+    galeria.scrollTop = 0;
     reiniciarBorrar();
     menu.hidden = false;
   }
+  // Responde al apoyar el dedo: si el toque activa la pantalla completa, todo se mueve y un "click" se perdería
+  $('#dibujos').addEventListener('pointerdown', e => { e.preventDefault(); abrirMenu(true); });
+  $('#cerrar-nina').addEventListener('click', cerrarMenu);
   function cerrarMenu() { menu.hidden = true; }
   function reiniciarBorrar() {
     confirmarBorrar = false;

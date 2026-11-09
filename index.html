@@ -37,6 +37,12 @@
         </g>
       </svg>
     </button>
+    <button id="dibujos" class="redondo dibujos" aria-label="Elegir dibujo">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="6" y="6" width="15" height="15" rx="4"/><rect x="27" y="6" width="15" height="15" rx="4"/>
+        <rect x="6" y="27" width="15" height="15" rx="4"/><rect x="27" y="27" width="15" height="15" rx="4"/>
+      </svg>
+    </button>
     <div id="tamanos"></div>
     <button id="deshacer" class="redondo" aria-label="Deshacer">
       <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M17 12 L8 21 L17 30 M9 21 H29 a10 10 0 0 1 0 20 H22"/></svg>
@@ -58,8 +64,11 @@
 <div id="menu" class="velo" hidden>
   <div class="tarjeta grande">
     <div class="cabecera">
-      <p class="titulo">Elige el dibujo</p>
+      <p class="titulo" id="titulo-menu">Elige el dibujo</p>
       <button id="listo" class="boton rosa">Listo</button>
+      <button id="cerrar-nina" class="cerrar" aria-label="Cerrar">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 14 L34 34 M34 14 L14 34"/></svg>
+      </button>
     </div>
     <div id="galeria" class="desplazable"></div>
     <div class="pie">
