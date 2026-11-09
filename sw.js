@@ -1,5 +1,5 @@
 // Guarda la app en la tablet para que funcione sin internet.
-const VERSION = 'pintitas-v4';
+const VERSION = 'pintitas-v5';
 const ARCHIVOS = [
   './',
   'index.html',
@@ -13,7 +13,8 @@ const ARCHIVOS = [
 ];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(VERSION).then(c => c.addAll(ARCHIVOS)));
+  // "reload": baja los archivos frescos, sin usar lo que el navegador tenga guardado
+  e.waitUntil(caches.open(VERSION).then(c => c.addAll(ARCHIVOS.map(a => new Request(a, { cache: 'reload' })))));
   self.skipWaiting();
 });
 
@@ -25,8 +26,11 @@ self.addEventListener('activate', e => {
 // Con internet trae la versión nueva; sin internet usa la guardada.
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
+  // Archivos de la app: siempre pregunta si hay versión nueva ("no-cache")
+  const propio = new URL(e.request.url).origin === location.origin;
+  const pedido = propio ? new Request(e.request.url, { cache: 'no-cache' }) : e.request;
   e.respondWith(
-    fetch(e.request).then(res => {
+    fetch(pedido).then(res => {
       if (res && (res.ok || res.type === 'opaque')) {
         const copia = res.clone();
         caches.open(VERSION).then(c => c.put(e.request, copia));
