@@ -14,8 +14,25 @@
 <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-<div id="app">
-  <aside id="colores" class="panel"></aside>
+<!-- Inicio: los juegos -->
+<section id="inicio" class="pantalla">
+  <h1 class="logo">Pintitas</h1>
+  <div id="botones-inicio"></div>
+</section>
+
+<!-- Juegos (se arman en juegos.js) -->
+<section id="j-burbujas" class="pantalla juego" hidden></section>
+<section id="j-animales" class="pantalla juego" hidden></section>
+<section id="j-sombras" class="pantalla juego" hidden></section>
+<section id="j-escondidas" class="pantalla juego" hidden></section>
+
+<!-- Pintar -->
+<div id="app" class="pantalla" hidden>
+  <aside id="colores" class="panel">
+    <button class="casita ancha" aria-label="Volver al inicio">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 7 L43 24 H37 V41 H11 V24 H5 Z"/><rect x="20" y="29" width="8" height="12" rx="2" class="puerta"/></svg>
+    </button>
+  </aside>
 
   <main id="centro">
     <div id="hoja">
@@ -80,5 +97,6 @@
 
 <script src="plantillas.js"></script>
 <script src="app.js"></script>
+<script src="juegos.js"></script>
 </body>
 </html>

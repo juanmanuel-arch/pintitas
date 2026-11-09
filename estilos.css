@@ -295,3 +295,295 @@ button {
   #secreto { top: 50%; left: 2vw; translate: 0 -50%; }
   #hoja { width: min(100%, calc((100dvh - 3 * var(--b) - 16vh) * 1.25)); }
 }
+
+/* ================= Pantallas y juegos ================= */
+.pantalla[hidden] { display: none !important; }
+
+/* Animalitos a color */
+.pintado, .sombra { width: 100%; height: 100%; }
+.pintado svg, .sombra svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.pintado svg > g { fill: var(--c1); }
+.pintado .d { fill: var(--c2); }
+.pintado .d2 { fill: #c98b5e; }
+.pintado .d3 { fill: #8fd36a; }
+.pintado .bl { fill: #fff; }
+.pintado .pico { fill: #ff9a2e; }
+.pintado .rosa { fill: #ff7eb6; }
+.pintado .rosado { fill: #ffc9dc; }
+.pintado .amar { fill: #ffd84a; }
+.pintado .amar2 { fill: #f2b81f; }
+.pintado .verde { fill: #7cc95a; }
+.pintado .verde2 { fill: #4fb565; }
+.pintado .agua { fill: #bfe9ff; }
+.pintado .crema { fill: #fff1cf; }
+.pintado .cafe { fill: #96693f; }
+.pintado .morado { fill: #8a4fd6; }
+.pintado .mj { fill: #ff9cc8; }
+.juego .esc, #inicio .esc { display: none; }
+.sombra svg * { stroke: #5b3f5b; }
+.sombra svg > g, .sombra svg *:not([fill="none"]) { fill: #5b3f5b; }
+.sombra .esc { display: none; }
+
+/* Casita para volver */
+.casita {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: var(--rosa);
+  box-shadow: 0 5px 0 #d94a88;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.casita svg { width: 58%; height: 58%; }
+.casita svg path { fill: #fff; }
+.casita svg .puerta { fill: var(--rosa); }
+.casita:active { transform: translateY(3px); box-shadow: 0 2px 0 #d94a88; }
+.juego > .casita { position: absolute; top: 3vh; left: 3vh; z-index: 5; }
+#colores .casita.ancha {
+  grid-column: 1 / -1;
+  width: auto;
+  height: var(--b);
+  border-radius: calc(var(--b) / 2);
+}
+#colores .casita.ancha svg { width: auto; height: 60%; }
+
+/* Inicio */
+#inicio {
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4vh;
+  padding: 3vh 3vw;
+}
+.logo {
+  margin: 0;
+  font-size: min(13vh, 96px);
+  font-weight: 600;
+  color: var(--rosa);
+  letter-spacing: 1px;
+  text-shadow: 0 5px 0 #fff, 0 9px 0 var(--rosa-suave);
+  line-height: 1;
+}
+#botones-inicio {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2.4vw;
+  width: min(100%, 1250px);
+}
+.entrada {
+  aspect-ratio: 4 / 5;
+  max-height: 58vh;
+  border-radius: 36px;
+  background: var(--fondo-boton);
+  border: 6px solid #fff;
+  box-shadow: 0 8px 0 rgba(150, 50, 110, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.6vh 1vw 1.4vh;
+  transition: transform 0.15s;
+}
+.entrada:active { transform: scale(0.95); }
+.entrada span {
+  font-size: min(3.6vh, 2.4vw, 30px);
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.18);
+  white-space: nowrap;
+}
+.arte { position: relative; flex: 1; width: 100%; min-height: 0; }
+.arte > .pintado, .arte > .sombra, .arte > svg { position: absolute; inset: 0; }
+.arte .paleta { width: 100%; height: 100%; }
+.arte .globo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 18px;
+  padding: 4px 10px;
+  font-size: min(2.8vh, 2vw);
+  font-weight: 600;
+  color: var(--tinta);
+}
+.arte.dos .sombra { transform: translate(-16%, -8%) scale(0.85); }
+.arte.dos .pintado { transform: translate(14%, 10%) scale(0.85); }
+.pompa {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, rgba(255,255,255,.95) 0 9%, rgba(255,255,255,.35) 10% 60%, rgba(255,255,255,.6) 100%);
+  border: 3px solid rgba(255, 255, 255, 0.9);
+}
+.pompa.p1 { width: 78%; aspect-ratio: 1; left: 4%; top: 18%; }
+.pompa.p1 .pintado { transform: scale(0.9); }
+.pompa.p2 { width: 28%; aspect-ratio: 1; right: 4%; top: 6%; }
+.pompa.p3 { width: 18%; aspect-ratio: 1; right: 12%; bottom: 6%; }
+.arte.esconde { overflow: hidden; border-radius: 24px; }
+.arte.esconde .pintado { transform: translateY(-4%) scale(0.95); }
+.arte .mata { position: absolute; left: -6%; right: -6%; bottom: -4%; height: 52%; }
+.arte .mata svg { width: 100%; height: 100%; display: block; }
+
+/* Fondo de los juegos */
+.juego {
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* Burbujas */
+#j-burbujas { background: linear-gradient(#cdeeff, #ffe3ef); }
+.campo { position: absolute; inset: 0; }
+.burbuja { position: absolute; bottom: -30vmin; }
+.burbuja .interior {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  padding: 12%;
+  background: radial-gradient(circle at 32% 28%, rgba(255,255,255,.95) 0 8%, rgba(255,255,255,.25) 9% 62%, rgba(190,230,255,.55) 100%);
+  border: 4px solid rgba(255, 255, 255, 0.95);
+  box-shadow: inset -6px -8px 0 rgba(150, 200, 255, 0.35), 0 6px 18px rgba(120, 160, 220, 0.25);
+}
+
+/* Chispas de fiesta */
+.chispa {
+  position: fixed;
+  z-index: 50;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.chispa.estrellita {
+  width: 28px;
+  height: 28px;
+  border-radius: 0;
+  clip-path: polygon(50% 0, 62% 36%, 100% 38%, 70% 60%, 80% 100%, 50% 76%, 20% 100%, 30% 60%, 0 38%, 38% 36%);
+}
+
+/* ¿Cómo hace? */
+#j-animales { background: linear-gradient(#fff4c4, #ffe3ef); }
+.barra {
+  position: absolute;
+  top: 3vh;
+  right: 3vh;
+  display: flex;
+  gap: 2vh;
+  z-index: 5;
+}
+.redondo-juego {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 5px 0 rgba(150, 50, 110, 0.2);
+  display: grid;
+  place-items: center;
+  font-size: 46px;
+  font-weight: 600;
+  color: var(--rosa);
+}
+.redondo-juego svg { width: 56%; height: 56%; fill: none; stroke: var(--rosa); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+.pregunta { background: #ffd84a; color: #fff; text-shadow: 0 2px 0 rgba(0,0,0,.15); }
+.pregunta.activa { animation: latido 1.2s ease-in-out infinite; }
+@keyframes latido { 50% { transform: scale(1.12); } }
+.grilla {
+  position: absolute;
+  inset: 13vh 4vw 4vh;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.4vw;
+  align-items: center;
+}
+.carta {
+  aspect-ratio: 5 / 6;
+  max-height: 100%;
+  border-radius: 34px;
+  background: #fff;
+  border: 6px solid #fff;
+  box-shadow: 0 8px 0 rgba(150, 50, 110, 0.18);
+  padding: 4%;
+}
+.carta.bien { border-color: #8fd14f; background: #f1ffe6; }
+
+/* Sombras */
+#j-sombras { background: linear-gradient(#efe2ff, #ffe3ef); }
+.zona-sombra {
+  position: absolute;
+  top: 4vh;
+  left: 50%;
+  translate: -50% 0;
+  width: min(46vh * 1.25, 60vw);
+  height: 46vh;
+  border-radius: 40px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 6px dashed #c9a0ff;
+  padding: 2vh;
+}
+.opciones {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4vh;
+  height: 38vh;
+  display: flex;
+  justify-content: center;
+  gap: 4vw;
+}
+.opcion {
+  height: 100%;
+  aspect-ratio: 5 / 4;
+  border-radius: 34px;
+  background: #fff;
+  box-shadow: 0 8px 0 rgba(150, 50, 110, 0.18);
+  padding: 1.5vh;
+  touch-action: none;
+  position: relative;
+}
+.opcion.agarrada { z-index: 10; box-shadow: 0 18px 30px rgba(150, 50, 110, 0.3); }
+
+/* Escondidas */
+#j-escondidas { background: linear-gradient(#ffe3ef, #fdeef4 45%, #d9f3c6); }
+.prado {
+  position: absolute;
+  inset: 12vh 5vw 4vh;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 2vh 4vw;
+}
+.escondite { position: relative; overflow: hidden; border-radius: 30px; }
+.escondite .animal {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 0;
+  height: 78%;
+  transform: translateY(70%) scale(0.85);
+  transition: transform 0.45s cubic-bezier(.3,1.5,.5,1);
+}
+.escondite .mata {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 62%;
+  transition: transform 0.4s ease;
+}
+.escondite .mata svg { width: 100%; height: 100%; display: block; }
+.escondite.abierto .animal { transform: translateY(-6%) scale(1); }
+.escondite.abierto .mata { transform: translateY(42%); }
+
+/* Animalitos más grandes (el dibujo deja márgenes dentro de su cuadro) */
+.carta svg, .opcion svg, .zona-sombra svg, .burbuja .pintado svg, .escondite .animal svg { transform: scale(1.25); }
+.arte > .pintado svg, .arte > .sombra svg { transform: scale(1.2); }
+.pompa.p1 .pintado svg { transform: scale(1.35); }
+
+@media (orientation: portrait) {
+  #botones-inicio { grid-template-columns: repeat(3, 1fr); }
+  .grilla { grid-template-columns: repeat(2, 1fr); }
+  .prado { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 1fr); }
+}
