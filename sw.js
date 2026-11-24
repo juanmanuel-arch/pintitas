@@ -1,5 +1,5 @@
 // Guarda la app en la tablet para que funcione sin internet.
-const VERSION = 'pintitas-v6';
+const VERSION = 'pintitas-v7';
 const ARCHIVOS = [
   './',
   'index.html',
@@ -7,14 +7,24 @@ const ARCHIVOS = [
   'app.js',
   'plantillas.js',
   'juegos.js',
+  'fotos.js',
+  'creditos.html',
   'manifest.webmanifest',
   'icono-192.png',
   'icono-512.png',
 ];
 
+// Las 100 fotos de animales (la lista está en fotos.js)
+importScripts('fotos.js');
+const FOTOS_APP = (self.FOTOS || []).map(f => `fotos/${f.id}.jpg`);
+
 self.addEventListener('install', e => {
   // "reload": baja los archivos frescos, sin usar lo que el navegador tenga guardado
-  e.waitUntil(caches.open(VERSION).then(c => c.addAll(ARCHIVOS.map(a => new Request(a, { cache: 'reload' })))));
+  e.waitUntil(caches.open(VERSION).then(async c => {
+    await c.addAll(ARCHIVOS.map(a => new Request(a, { cache: 'reload' })));
+    // Si alguna foto falla no se pierde todo lo demás
+    await Promise.all(FOTOS_APP.map(f => c.add(new Request(f, { cache: 'reload' })).catch(() => {})));
+  }));
   self.skipWaiting();
 });
 

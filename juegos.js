@@ -147,6 +147,7 @@
     sombras: $('#j-sombras'),
     escondidas: $('#j-escondidas'),
     memorice: $('#j-memorice'),
+    fotos: $('#j-fotos'),
   };
   const juegos = {};
   let enPantalla = 'inicio';
@@ -221,6 +222,16 @@
       const d = el('div', 'arte naipes');
       el('div', 'mini-dorso', d).innerHTML = HUELLA;
       el('div', 'mini-cara', d).appendChild(figura(buscar('perro')));
+      return d;
+    }],
+    ['fotos', 'Fotos', '#3fc1b0', () => {
+      const d = el('div', 'arte polaroids');
+      ['gato', 'perro'].forEach(id => {
+        const f = el('div', 'mini-foto', d);
+        const img = el('img', '', f);
+        img.src = `fotos/${id}.jpg`;
+        img.alt = '';
+      });
       return d;
     }],
   ];
@@ -616,6 +627,67 @@
     return {
       entrar() { repartir(); },
       salir() { clearTimeout(espera); },
+    };
+  })();
+
+  /* ---------- 6. Fotos: cada toque trae un animal de verdad (sin sonido) ---------- */
+  juegos.fotos = (() => {
+    const sec = pantallas.fotos;
+    botonCasa(sec);
+    const visor = el('div', 'visor', sec);
+    // Por dónde entra (y el que estaba sale por el lado contrario)
+    const LADOS = [['110vw', '0', '8deg'], ['-110vw', '0', '-8deg'], ['0', '110vh', '4deg']];
+    let mazo = [];
+    let actual = null;
+    let ultimo = 0;
+
+    function siguiente() {
+      if (!mazo.length) mazo = mezclar(FOTOS);
+      const f = mazo.pop();
+      // deja lista la que viene, para que aparezca al tiro
+      if (mazo.length) new Image().src = `fotos/${mazo[mazo.length - 1].id}.jpg`;
+      return f;
+    }
+
+    async function pasar() {
+      const f = siguiente();
+      const t = el('div', 'foto');
+      const img = el('img', '', t);
+      img.alt = '';
+      img.src = `fotos/${f.id}.jpg`;
+      el('span', '', t).textContent = f.nombre;
+      try { await img.decode(); } catch (e) { /* se muestra igual */ }
+
+      const [x, y, r] = LADOS[azar(LADOS.length)];
+      const contrario = v => (v === '0' ? '0' : v.startsWith('-') ? v.slice(1) : '-' + v);
+      const viejo = actual;
+      if (viejo) {
+        viejo.animate([
+          { transform: 'none', opacity: 1 },
+          { transform: `translate(${contrario(x)}, ${contrario(y)}) rotate(${contrario(r)})`, opacity: 0.6 },
+        ], { duration: 450, easing: 'cubic-bezier(.5,0,.8,.4)', fill: 'forwards' }).onfinish = () => viejo.remove();
+      }
+      visor.appendChild(t);
+      actual = t;
+      t.animate([
+        { transform: `translate(${x}, ${y}) rotate(${r})` },
+        { transform: 'translate(0, 0) rotate(-1deg)', offset: 0.75 },
+        { transform: 'none' },
+      ], { duration: 650, easing: 'cubic-bezier(.2,.9,.3,1)' });
+    }
+
+    sec.addEventListener('pointerdown', e => {
+      if (e.target.closest('.casita')) return;
+      e.preventDefault();
+      const ahora = Date.now();
+      if (ahora - ultimo < 450) return;   // si aprieta muy seguido, espera a que termine de pasar
+      ultimo = ahora;
+      pasar();
+    });
+
+    return {
+      entrar() { if (!actual) pasar(); },
+      salir() {},
     };
   })();
 })();

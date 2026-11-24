@@ -325,7 +325,16 @@
     galeria.querySelectorAll('.ficha').forEach(f => f.classList.toggle('activa', f.dataset.id === actual));
     galeria.scrollTop = 0;
     reiniciarBorrar();
+    mostrarVersion();
     menu.hidden = false;
+  }
+  // Muestra qué versión quedó guardada en la tablet (sirve para saber si ya llegó la nueva)
+  function mostrarVersion() {
+    if (!window.caches) return;
+    caches.keys().then(ks => {
+      const v = ks.map(k => k.match(/^pintitas-v(\d+)$/)).filter(Boolean).map(m => m[1]).pop();
+      $('#version').textContent = v ? `versión ${v}` : '';
+    }).catch(() => {});
   }
   // Responde al apoyar el dedo: si el toque activa la pantalla completa, todo se mueve y un "click" se perdería
   $('#dibujos').addEventListener('pointerdown', e => { e.preventDefault(); abrirMenu(true); });
