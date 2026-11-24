@@ -1,5 +1,5 @@
 // Guarda la app en la tablet para que funcione sin internet.
-const VERSION = 'pintitas-v5';
+const VERSION = 'pintitas-v6';
 const ARCHIVOS = [
   './',
   'index.html',

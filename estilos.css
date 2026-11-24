@@ -226,7 +226,7 @@ button {
 #teclado .chico { font-size: 18px; }
 
 .cabecera, .pie { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.pie { justify-content: flex-start; }
+.pie { justify-content: flex-start; flex-wrap: wrap; }
 
 .boton {
   padding: 14px 22px;

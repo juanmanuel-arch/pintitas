@@ -195,6 +195,7 @@
       get: k => hacer('readonly', s => s.get(k)),
       set: (k, v) => hacer('readwrite', s => s.put(v, k)),
       del: k => hacer('readwrite', s => s.delete(k)),
+      vaciar: () => hacer('readwrite', s => s.clear()),
     };
   })();
 
@@ -300,7 +301,9 @@
   const menu = $('#menu');
   const galeria = $('#galeria');
   const botonBorrar = $('#borrar');
+  const botonTodos = $('#borrar-todos');
   let confirmarBorrar = false;
+  let confirmarTodos = false;
 
   PLANTILLAS.forEach(p => {
     const b = document.createElement('button');
@@ -332,11 +335,15 @@
     confirmarBorrar = false;
     botonBorrar.textContent = 'Borrar este dibujo';
     botonBorrar.classList.remove('alerta');
+    confirmarTodos = false;
+    botonTodos.textContent = 'Borrar todos (nuevo)';
+    botonTodos.classList.remove('alerta');
   }
 
   $('#listo').addEventListener('click', cerrarMenu);
   botonBorrar.addEventListener('click', () => {
     if (!confirmarBorrar) {
+      reiniciarBorrar();
       confirmarBorrar = true;
       botonBorrar.textContent = '¿Seguro? Toca otra vez';
       botonBorrar.classList.add('alerta');
@@ -346,6 +353,24 @@
     limpiar();
     sucio = true;
     guardarAhora();
+    reiniciarBorrar();
+    cerrarMenu();
+  });
+  // Deja todos los animales en blanco, como recién instalada
+  botonTodos.addEventListener('click', async () => {
+    if (!confirmarTodos) {
+      reiniciarBorrar();
+      confirmarTodos = true;
+      botonTodos.textContent = '¿Borrar TODOS? Toca otra vez';
+      botonTodos.classList.add('alerta');
+      return;
+    }
+    clearTimeout(temporizador);
+    sucio = false;
+    try { await db.vaciar(); } catch (e) { /* nada guardado */ }
+    limpiar();
+    pila.length = 0;
+    botonDeshacer.disabled = true;
     reiniciarBorrar();
     cerrarMenu();
   });
